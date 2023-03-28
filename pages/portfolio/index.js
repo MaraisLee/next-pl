@@ -18,7 +18,7 @@ const Portfolio = () => {
             <div className="xl:w-1/4 md:w-1/2 p-4">
               <div
                 className="
-               bg-gray-100 p-6 rounded-lg"
+               btn-project"
               >
                 <a href="https://devgreact.github.io/hansalim/" target="_blank">
                   <Image
@@ -41,7 +41,7 @@ const Portfolio = () => {
               </div>
             </div>
             <div className="xl:w-1/4 md:w-1/2 p-4">
-              <div className="bg-gray-100 p-6 rounded-lg">
+              <div className="btn-project">
                 <Image
                   className="h-40 rounded w-full object-cover object-center mb-6"
                   src={samplePic}
@@ -61,7 +61,7 @@ const Portfolio = () => {
               </div>
             </div>
             <div className="xl:w-1/4 md:w-1/2 p-4">
-              <div className="bg-gray-100 p-6 rounded-lg">
+              <div className="btn-project">
                 <Image
                   className="h-40 rounded w-full object-cover object-center mb-6"
                   src={samplePic}
@@ -81,7 +81,7 @@ const Portfolio = () => {
               </div>
             </div>
             <div className="xl:w-1/4 md:w-1/2 p-4">
-              <div className="bg-gray-100 p-6 rounded-lg">
+              <div className="btn-project">
                 <Image
                   className="h-40 rounded w-full object-cover object-center mb-6"
                   src={samplePic}
