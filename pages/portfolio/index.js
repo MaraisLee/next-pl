@@ -1,7 +1,9 @@
 import Image from "next/image";
+import { DATABASE_ID, TOKEN } from "../../config";
 import samplePic from "../../public/sample.png";
 
-const Portfolio = () => {
+const Portfolio = ({ projects }) => {
+  console.log(projects);
   return (
     <>
       <section className="text-gray-600 body-font">
@@ -9,7 +11,7 @@ const Portfolio = () => {
           <div className="flex flex-wrap w-full mb-20">
             <div className="lg:w-1/2 w-full mb-6 lg:mb-0">
               <h1 className="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">
-                Portfolio
+                Portfolio : {projects.results.length}
               </h1>
               <div className="h-1 w-20 bg-green-800 rounded"></div>
             </div>
@@ -108,3 +110,27 @@ const Portfolio = () => {
 };
 
 export default Portfolio;
+
+export async function getStaticProps() {
+  const options = {
+    method: "POST",
+    headers: {
+      accept: "application/json",
+      "Notion-Version": "2022-06-28",
+      "content-type": "application/json",
+      Authorization: `Bearer ${TOKEN}`,
+    },
+    body: JSON.stringify({ page_size: 100 }),
+  };
+
+  const res = await fetch(
+    `https://api.notion.com/v1/databases/${DATABASE_ID}/query`,
+    options
+  );
+  const projects = await res.json();
+  // console.log(projects.results);
+
+  return {
+    props: { projects },
+  };
+}
