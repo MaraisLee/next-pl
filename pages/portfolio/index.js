@@ -1,6 +1,5 @@
-import Image from "next/image";
+import ProjectItem from "../../components/ProjectItem";
 import { DATABASE_ID, TOKEN } from "../../config";
-import samplePic from "../../public/sample.png";
 
 const Portfolio = ({ projects }) => {
   console.log(projects);
@@ -17,91 +16,11 @@ const Portfolio = ({ projects }) => {
             </div>
           </div>
           <div className="flex flex-wrap -m-4">
-            <div className="xl:w-1/4 md:w-1/2 p-4">
-              <div
-                className="
-               btn-project"
-              >
-                <a href="https://devgreact.github.io/hansalim/" target="_blank">
-                  <Image
-                    className="h-40 rounded w-full object-cover object-center mb-6"
-                    src={samplePic}
-                    layout="responsive"
-                    alt="content"
-                  />
-                </a>
-                <h3 className="tracking-widest text-indigo-500 text-xs font-medium title-font">
-                  SUBTITLE
-                </h3>
-                <h2 className="text-lg text-gray-900 font-medium title-font mb-4">
-                  Chichen Itza
-                </h2>
-                <p className="leading-relaxed text-base">
-                  Fingerstache flexitarian street art 8-bit waistcoat.
-                  Distillery hexagon disrupt edison bulbche.
-                </p>
-              </div>
-            </div>
-            <div className="xl:w-1/4 md:w-1/2 p-4">
-              <div className="btn-project">
-                <Image
-                  className="h-40 rounded w-full object-cover object-center mb-6"
-                  src={samplePic}
-                  layout="responsive"
-                  alt="content"
-                />
-                <h3 className="tracking-widest text-indigo-500 text-xs font-medium title-font">
-                  SUBTITLE
-                </h3>
-                <h2 className="text-lg text-gray-900 font-medium title-font mb-4">
-                  Colosseum Roma
-                </h2>
-                <p className="leading-relaxed text-base">
-                  Fingerstache flexitarian street art 8-bit waistcoat.
-                  Distillery hexagon disrupt edison bulbche.
-                </p>
-              </div>
-            </div>
-            <div className="xl:w-1/4 md:w-1/2 p-4">
-              <div className="btn-project">
-                <Image
-                  className="h-40 rounded w-full object-cover object-center mb-6"
-                  src={samplePic}
-                  layout="responsive"
-                  alt="content"
-                />
-                <h3 className="tracking-widest text-indigo-500 text-xs font-medium title-font">
-                  SUBTITLE
-                </h3>
-                <h2 className="text-lg text-gray-900 font-medium title-font mb-4">
-                  Great Pyramid of Giza
-                </h2>
-                <p className="leading-relaxed text-base">
-                  Fingerstache flexitarian street art 8-bit waistcoat.
-                  Distillery hexagon disrupt edison bulbche.
-                </p>
-              </div>
-            </div>
-            <div className="xl:w-1/4 md:w-1/2 p-4">
-              <div className="btn-project">
-                <Image
-                  className="h-40 rounded w-full object-cover object-center mb-6"
-                  src={samplePic}
-                  layout="responsive"
-                  alt="content"
-                />
-                <h3 className="tracking-widest text-indigo-500 text-xs font-medium title-font">
-                  SUBTITLE
-                </h3>
-                <h2 className="text-lg text-gray-900 font-medium title-font mb-4">
-                  San Francisco
-                </h2>
-                <p className="leading-relaxed text-base">
-                  Fingerstache flexitarian street art 8-bit waistcoat.
-                  Distillery hexagon disrupt edison bulbche.
-                </p>
-              </div>
-            </div>
+            {projects.results.map((item) => (
+              <>
+                <ProjectItem key={item.id} data={item} />
+              </>
+            ))}
           </div>
         </div>
       </section>
@@ -120,7 +39,15 @@ export async function getStaticProps() {
       "content-type": "application/json",
       Authorization: `Bearer ${TOKEN}`,
     },
-    body: JSON.stringify({ page_size: 100 }),
+    body: JSON.stringify({
+      sorts: [
+        {
+          property: "title",
+          direction: "ascending",
+        },
+      ],
+      page_size: 100,
+    }),
   };
 
   const res = await fetch(
@@ -132,5 +59,6 @@ export async function getStaticProps() {
 
   return {
     props: { projects },
+    revalidate: 10,
   };
 }
