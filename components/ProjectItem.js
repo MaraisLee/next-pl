@@ -2,8 +2,8 @@ import Image from "next/image";
 import samplePic from "../public/sample.png";
 
 const ProjectItem = ({ data }) => {
-  console.log("===========");
-  console.log(data);
+  // console.log("===========");
+  // console.log(data);
   const title = data.properties.title.rich_text[0].plain_text;
   const imgUrl = data.cover.file?.url || data.cover.external.url;
 

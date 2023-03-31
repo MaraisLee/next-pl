@@ -2,7 +2,7 @@ import ProjectItem from "../../components/ProjectItem";
 import { DATABASE_ID, TOKEN } from "../../config";
 
 const Portfolio = ({ projects }) => {
-  console.log(projects);
+  // console.log(projects);
   return (
     <>
       <section className="text-gray-600 body-font">
@@ -17,9 +17,7 @@ const Portfolio = ({ projects }) => {
           </div>
           <div className="flex flex-wrap -m-4">
             {projects.results.map((item) => (
-              <>
-                <ProjectItem key={item.id} data={item} />
-              </>
+              <ProjectItem key={item.id} data={item} />
             ))}
           </div>
         </div>
